@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # Service 1: Aplikasi Web (CI4)
+  app:
+    build: .
+    container_name: soccermatch_app
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - soccer-network
+
+  # Service 2: Database (MySQL)
+  db:
+    image: mysql:5.7
+    container_name: soccermatch_db
+    environment:
+      MYSQL_DATABASE: soccermatch
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - soccer-network
+
+  # Service 3: phpMyAdmin (Opsional, buat liat db visual)
+  pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: soccermatch_pma
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    networks:
+      - soccer-network
+
+networks:
+  soccer-network:
+    driver: bridge
+
+volumes:
+  db_data:
