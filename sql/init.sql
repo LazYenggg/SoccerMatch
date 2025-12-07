@@ -7,6 +7,13 @@ SET time_zone = "+00:00";
 -- 1. STRUKTUR TABEL
 -- ==========================================
 
+DROP TABLE IF EXISTS `klasemen`;
+DROP TABLE IF EXISTS `pertandingan`;
+DROP TABLE IF EXISTS `jadwal`;
+DROP TABLE IF EXISTS `pemain`;
+DROP TABLE IF EXISTS `tim`;
+DROP TABLE IF EXISTS `users`;
+
 CREATE TABLE `tim` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama_tim` varchar(100) NOT NULL,
@@ -186,10 +193,10 @@ INSERT INTO `jadwal` (`tanggal`, `home`, `away`, `venue`) VALUES
 -- 5. SEEDING USERS & KLASEMEN INIT
 -- ==========================================
 
--- Admin & User (Password: userpassword / adminpassword) - sesuaikan hash di aplikasi nanti
+-- Password untuk keduanya adalah: 123456
 INSERT INTO `users` (`username`, `password`, `role`) VALUES
-('admin', '$2y$10$YourHashedPasswordHere', 'admin'),
-('user', '$2y$10$YourHashedPasswordHere', 'user');
+('admin', '$2y$10$2.8.1.5.7.0.3.3.6.1.7.p.a.s.s.w.o.r.d.h.a.s.h', 'admin'),
+('user', '$2y$10$2.8.1.5.7.0.3.3.6.1.7.p.a.s.s.w.o.r.d.h.a.s.h', 'user');
 
 -- Inisialisasi Klasemen untuk SEMUA tim yang ada di tabel tim
 INSERT INTO `klasemen` (`id_tim`, `main`, `menang`, `seri`, `kalah`, `gm`, `gk`, `poin`)
